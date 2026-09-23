@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food Ordering System</title>
+  <title>KITCHNOMEEKS | Food Ordering</title>
   
   <!-- Bootstrap 5 CSS -->
   <link 
@@ -15,29 +15,81 @@
     rel="stylesheet" 
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
   />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
 
   <style>
+    :root {
+      --pink: #e94679;
+      --pink-deep: #c92d61;
+      --pink-soft: #fff0f5;
+      --ink: #2d2630;
+      --muted: #756a73;
+    }
+
     body {
-      background-color: #f4f6f9;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: #fff7fa;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .kitchen-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 10%, #ffffff 0, #fff7fa 42%, #fce8f0 100%);
+    }
+    .kitchen-background i {
+      position: absolute;
+      color: rgba(201, 45, 97, 0.10);
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      transform: rotate(var(--rotation));
+    }
+    .kitchen-background i:nth-child(1) { top: 8%; left: 8%; --rotation: -18deg; }
+    .kitchen-background i:nth-child(2) { top: 18%; right: 11%; --rotation: 16deg; }
+    .kitchen-background i:nth-child(3) { top: 48%; left: 4%; --rotation: 12deg; }
+    .kitchen-background i:nth-child(4) { top: 63%; right: 6%; --rotation: -14deg; }
+    .kitchen-background i:nth-child(5) { bottom: 8%; left: 16%; --rotation: 21deg; }
+    .kitchen-background i:nth-child(6) { bottom: 14%; right: 18%; --rotation: -10deg; }
+    .kitchen-background i:nth-child(7) { top: 35%; left: 23%; --rotation: -8deg; }
+    .kitchen-background i:nth-child(8) { bottom: 28%; right: 27%; --rotation: 13deg; }
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.04em;
     }
     .order-card {
       border: none;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 22px 55px rgba(93, 34, 58, 0.14);
+      overflow: hidden;
     }
     .header-bg {
-      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      background: linear-gradient(135deg, var(--pink-deep), var(--pink));
       color: white;
-      border-top-left-radius: 14px;
-      border-top-right-radius: 14px;
+    }
+    .card-body {
+      background: rgba(255, 255, 255, 0.96);
+    }
+    .form-label {
+      color: var(--muted) !important;
+    }
+    .form-control, .form-select, .input-group-text {
+      border-color: #eadde3;
     }
     .form-control:focus, .form-select:focus {
-      border-color: #ff4b2b;
-      box-shadow: 0 0 0 0.25rem rgba(255, 75, 43, 0.2);
+      border-color: var(--pink);
+      box-shadow: 0 0 0 0.25rem rgba(233, 70, 121, 0.16);
+    }
+    .input-group-text {
+      color: var(--pink-deep);
+      background: var(--pink-soft);
     }
     .btn-place-order {
-      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      background: linear-gradient(135deg, var(--pink-deep), var(--pink));
       border: none;
       color: white;
       font-weight: 600;
@@ -48,9 +100,23 @@
       color: white;
       transform: translateY(-1px);
     }
+    .total-field {
+      color: var(--pink-deep) !important;
+    }
   </style>
 </head>
 <body class="py-5">
+
+  <div class="kitchen-background" aria-hidden="true">
+    <i class="bi bi-egg-fried"></i>
+    <i class="bi bi-cup-hot-fill"></i>
+    <i class="bi bi-collection-fill"></i>
+    <i class="bi bi-circle-square"></i>
+    <i class="bi bi-egg-fill"></i>
+    <i class="bi bi-cake2-fill"></i>
+    <i class="bi bi-basket3-fill"></i>
+    <i class="bi bi-stars"></i>
+  </div>
 
   <div class="container">
     <div class="row justify-content-center">
@@ -59,8 +125,8 @@
         <!-- Card Container -->
         <div class="card order-card bg-white">
           <div class="header-bg p-4 text-center">
-            <h3 class="fw-bold mb-1"><i class="bi bi-basket me-2"></i>FOOD ORDERING SYSTEM</h3>
-            <p class="small text-white-50 mb-0">Place your quick food order below</p>
+            <h3 class="brand-name fw-bold mb-1"><i class="bi bi-basket me-2"></i>KITCHNOMEEKS</h3>
+            <p class="small text-white-50 mb-0">Thoughtful meals, made easy</p>
           </div>
 
           <div class="card-body p-4 p-md-5">
@@ -90,11 +156,11 @@
                 </label>
                 <select class="form-select form-select-lg" id="foodSelect" required>
                   <option value="" selected disabled>-- Select a food item --</option>
-                  <option value="Cheeseburger Deluxe" data-price="8.99">Cheeseburger Deluxe ($8.99)</option>
-                  <option value="Pepperoni Pizza Slice" data-price="4.50">Pepperoni Pizza Slice ($4.50)</option>
-                  <option value="Crispy Fried Chicken" data-price="9.50">Crispy Fried Chicken ($9.50)</option>
-                  <option value="Classic Caesar Salad" data-price="6.75">Classic Caesar Salad ($6.75)</option>
-                  <option value="Creamy Carbonara Pasta" data-price="11.00">Creamy Carbonara Pasta ($11.00)</option>
+                  <option value="Cheeseburger Deluxe" data-price="8.99">Cheeseburger Deluxe (₱8.99)</option>
+                  <option value="Pepperoni Pizza Slice" data-price="4.50">Pepperoni Pizza Slice (₱4.50)</option>
+                  <option value="Crispy Fried Chicken" data-price="9.50">Crispy Fried Chicken (₱9.50)</option>
+                  <option value="Classic Caesar Salad" data-price="6.75">Classic Caesar Salad (₱6.75)</option>
+                  <option value="Creamy Carbonara Pasta" data-price="11.00">Creamy Carbonara Pasta (₱11.00)</option>
                 </select>
               </div>
 
@@ -104,7 +170,7 @@
                   Price:
                 </label>
                 <div class="input-group input-group-lg">
-                  <span class="input-group-text">$</span>
+                  <span class="input-group-text">₱</span>
                   <input 
                     type="text" 
                     class="form-control bg-light" 
@@ -136,10 +202,10 @@
                   Total:
                 </label>
                 <div class="input-group input-group-lg">
-                  <span class="input-group-text">$</span>
+                  <span class="input-group-text">₱</span>
                   <input 
                     type="text" 
-                    class="form-control fw-bold text-danger bg-light" 
+                    class="form-control fw-bold total-field bg-light" 
                     id="totalPrice" 
                     value="0.00" 
                     readonly 
